@@ -1,0 +1,112 @@
+table Calendar
+	lineageTag: 64d40ef6-dc0d-48a9-8d90-5f74a55c2306
+
+	column Date
+		formatString: General Date
+		lineageTag: 746f76af-da95-4797-b7b6-667f0e2ef99c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: dba7414b-8cc6-4d93-aa98-ac82f8af3943
+			defaultHierarchy: LocalDateTable_9ff58a27-3625-4efd-9d38-58f75b1c4796.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		lineageTag: 2439732b-4f91-4e6d-ac04-5582a5295b5d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMM
+		lineageTag: dbc87fb5-3db4-49d5-ab96-bb544d353c03
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMM]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNo
+		formatString: 0
+		lineageTag: b432b437-e846-4581-bb69-88c3ad741ffd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MonthNo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: 5b80992b-be02-4e4f-8326-d89b3a731776
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		lineageTag: f1b85ead-a94a-402b-9d2c-6cce21158b31
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth]
+
+		annotation SummarizationSetBy = Automatic
+
+	column yearmonth2
+		lineageTag: 1d947672-c5d2-40e0-b2a5-26d307c4a093
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [yearmonth2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'YYYY MM'
+		lineageTag: f591f9e6-88a9-4f67-add0-63d8dafec469
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YYYY MM]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		lineageTag: 48c840a5-0ee2-4c0b-8593-ba5c9fd8ea48
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_roll
+		lineageTag: 0d3fb4ca-3713-4103-827e-0f2099fdf038
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [month_roll]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = calculated
+		mode: import
+		source = ```
+				
+				VAR Days = CALENDAR(DATE(2018,1,1), DATE(2025,12,31))
+				Return ADDCOLUMNS(
+				    Days,
+				"Year", FORMAT([Date], "yyyy"),
+				"YearMM",FORMAT([Date], "YYYYMM"),
+				"MonthNo",MONTH([Date]),
+				"Month", FORMAT([Date],"MMM"),
+				"YearMonth", FORMAT([Date], "MMM YYYY"),
+				"yearmonth2", FORMAT([Date], "MMM-YY"),
+				"YYYY MM", FORMAT([Date], "YYYY MM"),
+				"month_roll",FORMAT([Date], "DD-MM-YYYY HH:MM"),
+				"Day", FORMAT([Date],"DD"))
+				 
+				 
+				```
+
+	annotation PBI_Id = 3d2fce55546840d4b0925343cbc4b8da
+

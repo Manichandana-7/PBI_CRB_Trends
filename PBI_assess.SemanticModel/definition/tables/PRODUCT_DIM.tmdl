@@ -1,0 +1,50 @@
+table PRODUCT_DIM
+	lineageTag: af720ad1-2032-4c3d-8a0c-8c8776451032
+
+	column PRODUCT_KEY
+		dataType: string
+		lineageTag: 425cd2f2-a723-4aa0-ba0b-f068dda4c4be
+		summarizeBy: none
+		sourceColumn: PRODUCT_KEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column REVENUE_TYPE
+		dataType: double
+		lineageTag: 22eb2e41-6d00-4197-bbeb-cac3e51a2750
+		summarizeBy: none
+		sourceColumn: REVENUE_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRODUCT_LEVEL_1
+		dataType: string
+		lineageTag: 321e8688-101d-44b4-a33f-49a3a713ded3
+		summarizeBy: none
+		sourceColumn: PRODUCT_LEVEL_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_LEVEL_2
+		dataType: string
+		lineageTag: 229d7fc2-76fd-4676-be09-eccd8ebee792
+		summarizeBy: none
+		sourceColumn: PRODUCT_LEVEL_2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PRODUCT_DIM = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("OMHNPEI-MSB33679.snowflakecomputing.com","COMPUTE_WH",[Implementation="2.0"]),
+				    PBI_DATASET_Database = Source{[Name="PBI_DATASET",Kind="Database"]}[Data],
+				    DBO_Schema = PBI_DATASET_Database{[Name="DBO",Kind="Schema"]}[Data],
+				    PRODUCT_DIM_Table = DBO_Schema{[Name="PRODUCT_DIM",Kind="Table"]}[Data]
+				in
+				    PRODUCT_DIM_Table
+
+	annotation PBI_ResultType = Table
+

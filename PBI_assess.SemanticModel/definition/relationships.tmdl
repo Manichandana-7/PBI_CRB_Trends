@@ -1,0 +1,17 @@
+relationship AutoDetected_9aa5573c-7d77-461c-b345-ed4dd3afbd21
+	fromColumn: SNOWBALL_FACT.CUSTOMER_KEY
+	toColumn: CUSTOMER_DIM.CUSTOMER_KEY
+
+relationship AutoDetected_1199e395-94b7-4c38-b515-1cac70af0934
+	fromColumn: SNOWBALL_FACT.PRODUCT_KEY
+	toColumn: PRODUCT_DIM.PRODUCT_KEY
+
+relationship dba7414b-8cc6-4d93-aa98-ac82f8af3943
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.Date
+	toColumn: LocalDateTable_9ff58a27-3625-4efd-9d38-58f75b1c4796.Date
+
+relationship e105a630-4925-765f-5cd4-0fbc61093d06
+	fromColumn: SNOWBALL_FACT.MONTH_ROLL
+	toColumn: Calendar.month_roll
+

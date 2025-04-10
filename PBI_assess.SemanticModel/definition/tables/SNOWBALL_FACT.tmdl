@@ -1,0 +1,158 @@
+table SNOWBALL_FACT
+	lineageTag: e7184da7-39f4-42f0-b630-c4d1e7efda5b
+
+	column CUSTOMER_KEY
+		dataType: string
+		lineageTag: ce446b4a-93e7-447a-a29b-c64ee1c83eb7
+		summarizeBy: none
+		sourceColumn: CUSTOMER_KEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_KEY
+		dataType: string
+		lineageTag: ac1dbe9a-18db-4e15-a476-900c261c0360
+		summarizeBy: none
+		sourceColumn: PRODUCT_KEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column MONTH_ROLL
+		dataType: string
+		lineageTag: ec1f2ed7-ea17-4249-8c1d-5e4955d616e3
+		summarizeBy: none
+		sourceColumn: MONTH_ROLL
+
+		annotation SummarizationSetBy = Automatic
+
+	column PERIOD_TYPE
+		dataType: string
+		lineageTag: 2678c592-c6ae-4ae8-8c2b-aeede335b934
+		summarizeBy: none
+		sourceColumn: PERIOD_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column BOP_ARR
+		dataType: double
+		lineageTag: 3c6e0141-467f-4de4-b202-062506c55feb
+		summarizeBy: sum
+		sourceColumn: BOP_ARR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_CHURN
+		dataType: double
+		lineageTag: 5e3beafe-ebe2-4de0-bc41-c36a51e0b9d9
+		summarizeBy: sum
+		sourceColumn: CUSTOMER_CHURN
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRODUCT_CHURN
+		dataType: double
+		lineageTag: bb37ab94-1699-41a3-bb89-eac9624e11d5
+		summarizeBy: sum
+		sourceColumn: PRODUCT_CHURN
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DOWNSELL
+		dataType: double
+		lineageTag: 4b17be37-0f39-4b68-8cda-7ce038a9f5ad
+		summarizeBy: sum
+		sourceColumn: DOWNSELL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GRR
+		dataType: double
+		lineageTag: c612bbf3-09c7-4451-8c6c-7221044ea404
+		summarizeBy: sum
+		sourceColumn: GRR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UPSELL
+		dataType: double
+		lineageTag: f2610a3b-cc5b-4999-bf92-bc7690dbd4bd
+		summarizeBy: sum
+		sourceColumn: UPSELL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CROSS_SELL
+		dataType: double
+		lineageTag: ca24b6b2-852c-4a48-a812-0b1a10a985c1
+		summarizeBy: sum
+		sourceColumn: CROSS_SELL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NRR
+		dataType: double
+		lineageTag: bde2b975-1fcc-4ac7-9a2a-50f78b3a14fe
+		summarizeBy: sum
+		sourceColumn: NRR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NEW_CUSTOMER
+		dataType: double
+		lineageTag: 7041a659-f32f-4d4c-9841-a554f6a150ae
+		summarizeBy: sum
+		sourceColumn: NEW_CUSTOMER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column EOP_ARR
+		dataType: double
+		lineageTag: b857ff27-d9c7-42d5-a2b2-ea197d0f9677
+		summarizeBy: sum
+		sourceColumn: EOP_ARR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VOLUME
+		dataType: double
+		lineageTag: 4390ab9c-e13f-4b7c-b140-f7b127fb1d91
+		summarizeBy: sum
+		sourceColumn: VOLUME
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SNOWBALL_FACT = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("OMHNPEI-MSB33679.snowflakecomputing.com","COMPUTE_WH",[Implementation="2.0"]),
+				    PBI_DATASET_Database = Source{[Name="PBI_DATASET",Kind="Database"]}[Data],
+				    DBO_Schema = PBI_DATASET_Database{[Name="DBO",Kind="Schema"]}[Data],
+				    SNOWBALL_FACT_Table = DBO_Schema{[Name="SNOWBALL_FACT",Kind="Table"]}[Data]
+				in
+				    SNOWBALL_FACT_Table
+
+	annotation PBI_ResultType = Table
+

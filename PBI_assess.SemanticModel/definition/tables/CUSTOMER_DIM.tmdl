@@ -1,0 +1,85 @@
+table CUSTOMER_DIM
+	lineageTag: 99feb801-e3ec-4d65-af7a-d0adff42b603
+
+	column CUSTOMER_KEY
+		dataType: string
+		lineageTag: a9b370c6-7eca-4ac4-9e2f-ec1d1d048160
+		summarizeBy: none
+		sourceColumn: CUSTOMER_KEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_LEVEL_1
+		dataType: double
+		lineageTag: 6aebf83a-df50-4263-b3af-7317f941f41a
+		summarizeBy: none
+		sourceColumn: CUSTOMER_LEVEL_1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_LEVEL_2
+		dataType: double
+		lineageTag: f05202dc-7dec-4623-9386-3fa8efdf78f4
+		summarizeBy: none
+		sourceColumn: CUSTOMER_LEVEL_2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_NAME
+		dataType: string
+		lineageTag: a0077ab5-eaba-4920-9432-3c74d47f693e
+		summarizeBy: none
+		sourceColumn: CUSTOMER_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_COUNTRY
+		dataType: string
+		lineageTag: fb5d8eee-3528-4e64-b046-c44e91384a79
+		summarizeBy: none
+		sourceColumn: CUSTOMER_COUNTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_REGION
+		dataType: string
+		lineageTag: 1102a09d-1c66-4dbc-88d2-4cf2e66356cd
+		summarizeBy: none
+		sourceColumn: CUSTOMER_REGION
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_COHORT_YEAR
+		dataType: double
+		lineageTag: e9a414da-6d7c-4f23-a207-dc5d491cfd8f
+		summarizeBy: none
+		sourceColumn: CUSTOMER_COHORT_YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	hierarchy 'CUSTOMER_COUNTRY Hierarchy'
+		lineageTag: 3be34846-6ecf-42a8-85fd-b11e882ab05c
+
+		level CUSTOMER_COUNTRY
+			lineageTag: 5285f166-b6a6-4edc-b88c-81cf538700e7
+			column: CUSTOMER_COUNTRY
+
+	partition CUSTOMER_DIM = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("OMHNPEI-MSB33679.snowflakecomputing.com","COMPUTE_WH",[Implementation="2.0"]),
+				    PBI_DATASET_Database = Source{[Name="PBI_DATASET",Kind="Database"]}[Data],
+				    DBO_Schema = PBI_DATASET_Database{[Name="DBO",Kind="Schema"]}[Data],
+				    CUSTOMER_DIM_Table = DBO_Schema{[Name="CUSTOMER_DIM",Kind="Table"]}[Data]
+				in
+				    CUSTOMER_DIM_Table
+
+	annotation PBI_ResultType = Table
+
